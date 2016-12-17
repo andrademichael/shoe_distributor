@@ -1,11 +1,12 @@
-<h2>All Stores:</h2>
+<h2>Store Viewer</h2>
 
-<% if @stores.any?() do |store| %>
-<% @stores.each do |store| %>
-<% <ul> %>
-<% <li><%= store.name %></li> %>
-<% </ul> %>
-<% end %>
+<% if @stores.any? %>
+  <ul>
+  <% @stores.each do |store| %>
+    <li><%= store.name %></li>
+    <li><%= store.address %></li>
+  <% end %>
+  </ul>
 <% else %>
   <p>No Stores Yet.</p>
 <% end %>
