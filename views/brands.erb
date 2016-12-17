@@ -1,0 +1,20 @@
+<h2>Brand Viewer</h2>
+
+<% if @brands.any? %>
+  <ul>
+  <% @brands.each do |brand| %>
+    <li><%= brand.name %></li>
+    <li><%= brand.logo %></li>
+  <% end %>
+  </ul>
+<% else %>
+  <p>No Brands Yet.</p>
+<% end %>
+
+<form class="well" action="/brands" method="post">
+  <label for="brand_name">Brand Name:</label>
+  <input type="text" id="brand_name" name="brand_name">
+  <label for="brand_logo">Brand Logo:</label>
+  <input type="text" id="brand_logo" name="brand_logo">
+  <button type="submit">Add brand</button>
+</form>

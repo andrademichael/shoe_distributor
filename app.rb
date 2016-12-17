@@ -22,3 +22,19 @@ post("/stores") do
     erb(:error)
   end
 end
+
+get("/brands") do
+  @brands = Brand.all()
+  erb(:brands)
+end
+
+post("/brands") do
+  brand_name = params.fetch("brand_name")
+  brand_logo = params.fetch("brand_logo")
+  new_brand = Brand.new({:name => brand_name, :logo => brand_logo})
+  if new_brand.save()
+    redirect to("/brands")
+  else
+    erb(:error)
+  end
+end
