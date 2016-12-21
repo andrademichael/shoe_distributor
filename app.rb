@@ -16,7 +16,7 @@ post("/stores") do
   store_name = params.fetch("store_name")
   store_address = params.fetch("store_address")
   new_store = Store.new({:name => store_name, :address => store_address})
-  if new_store.save()
+  if new_store.save
     redirect to("/stores")
   else
     erb(:error)
