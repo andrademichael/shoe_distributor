@@ -22,3 +22,22 @@ describe("As a user, I want to be able to add, update, delete and list shoe bran
     expect(page).to have_content("The Swash")
   end
 end
+
+describe("As a user, I want to be able to add existing brands to one or more stores") do
+  it "allows user to link brands with stores after both have been created", :type => :feature do
+    visit("/")
+    click_on('View Shoe Brands:')
+    fill_in('Brand Name:', :with => "Best Shoes")
+    fill_in('Brand Logo:', :with => "The Swash")
+    click_on('Add brand')
+    click_on('Home')
+    click_on('View Shoe Stores:')
+    fill_in('Store Name:', :with => "Shoes R Us")
+    fill_in('Store Address:', :with => "123 Shoe Dr")
+    click_on('Add store')
+    click_on('Lethargo - 999 99th Pl')
+    select 'Best Shoes', :from => 'brand_list'
+    click_on('Sell Brand Here!')
+    expect(page).to have_content('Best Shoes sold here!')
+  end
+end

@@ -23,6 +23,24 @@ post("/stores") do
   end
 end
 
+patch("/stores") do
+  changing_store = Store.find(params.fetch("store_id").to_i())
+  if changing_store.update("store_name", "store_address")
+    redirect to "/stores"
+  else
+    erb(:error)
+  end
+end
+
+delete("/stores") do
+  doomed_store = Store.find(params.fetch("store_id").to_i())
+  if doomed_store.destroy()
+    redirect to "/stores"
+  else
+    erb(:error)
+  end
+end
+
 get("/brands") do
   @brands = Brand.all()
   erb(:brands)

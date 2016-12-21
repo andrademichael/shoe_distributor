@@ -3,8 +3,7 @@
 <% if @stores.any? %>
   <ul>
   <% @stores.each do |store| %>
-    <li><%= store.name %></li>
-    <li><%= store.address %></li>
+    <li><%= store.name %> - <%= store.address %></li>
   <% end %>
   </ul>
 <% else %>
