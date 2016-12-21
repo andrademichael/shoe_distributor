@@ -1,0 +1,41 @@
+<h2>Welcome to <%= @store.name() %> Online!</h2>
+
+<h3>Proudly selling:</h3>
+<% if @store_brands.exists %>
+  <ul class="well">
+    <% @store_brands.each do |brand| %>
+    <li><a href="/brand/<%= brand.id() %>"><%= brand.name() %></a></li>
+  <% end %>
+  </ul>
+
+<% else %>
+  <h4>Many brands you've definitely heard of, honest!</h4>
+<% end %>
+
+<form class="well" action="/store/<%= @store.id() %>/add_brand" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <label for="add_brand">Add a brand to this store's inventory:</label>
+  <select id="add_brand" name="add_brand">
+    <% Brand.all.each do |brand| %>
+      <option value="<%= brand.id() %>"><%= brand.name() %></option>
+    <% end %>
+  </select>
+  <button type="submit">Sell Brand Here!</button>
+</form>
+
+<form class="well" action="/store/<%= @store.id() %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <h3>Edit store:</h3>
+  <br>
+  <label for="change_store_name">Enter a new name for this store:</label>
+  <input type="text" name="change_store_name" value="<%= @store.name() %>">
+  <label for="change_store_address">Enter a new address for this store:</label>
+  <input type="text" name="change_store_address" value="<%= @store.address() %>">
+  <button type="submit">Save changes</button>
+</form>
+
+
+<form class="well" action="/store/<%= @store.id() %>" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <button class="btn btn-danger" type="submit">Delete Store</button>
+</form>

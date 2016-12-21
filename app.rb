@@ -23,22 +23,36 @@ post("/stores") do
   end
 end
 
-patch("/stores") do
-  changing_store = Store.find(params.fetch("store_id").to_i())
-  if changing_store.update("store_name", "store_address")
+get("/store/:id") do
+  @store = Store.find(params.fetch("id"))
+  @brands = Brand.all()
+  @store_brands = @store.brands
+  erb(:store)
+end
+
+patch("/store/:id") do
+  @store_id = params.fetch("id").to_i()
+  changing_store = Store.find(@store_id)
+  new_name = params.fetch("change_store_name")
+  new_address = params.fetch("change_store_address")
+  changing_store.update({:name => new_name, :address => new_address})
+  redirect to "/store/#{@store_id}"
+end
+
+delete("/store/:id") do
+  doomed_store = Store.find(params.fetch("id").to_i())
+  if doomed_store.destroy()
     redirect to "/stores"
   else
     erb(:error)
   end
 end
 
-delete("/stores") do
-  doomed_store = Store.find(params.fetch("store_id").to_i())
-  if doomed_store.destroy()
-    redirect to "/stores"
-  else
-    erb(:error)
-  end
+patch("/store/:store_id/add_brand") do
+  brand = Brand.find(params.fetch("add_brand"))
+  store = Store.find(params.fetch("store_id"))
+  store.brands.push(brand)
+  redirect to("/store/#{store.id()}")
 end
 
 get("/brands") do

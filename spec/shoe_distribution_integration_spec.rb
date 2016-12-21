@@ -35,9 +35,9 @@ describe("As a user, I want to be able to add existing brands to one or more sto
     fill_in('Store Name:', :with => "Shoes R Us")
     fill_in('Store Address:', :with => "123 Shoe Dr")
     click_on('Add store')
-    click_on('Lethargo - 999 99th Pl')
-    select 'Best Shoes', :from => 'brand_list'
+    click_on('Shoes R Us - 123 Shoe Dr')
+    select 'Best Shoes', :from => 'add_brand'
     click_on('Sell Brand Here!')
-    expect(page).to have_content('Best Shoes sold here!')
+    expect(page).to have_content('Proudly selling: Best Shoes')
   end
 end
